@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        {% load staticfiles %}
+        <link rel="stylesheet" type="text/css" href="{% static 'common/vendor/css/bootstrap.min.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'common/custom/css/styles.css' %}" />
+    </head>
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed"
+                        data-toggle="collapse" data-target="#tasksMenu">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" id="navbarBrand" href="#">Taskr</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="tasksMenu">
+                    <ul class="nav navbar-nav pull-right">
+                        <li>
+                            <a href="#">
+                                <span><i class="glyphicon glyphicon-plus"></i></span>
+                                New Task
+                            </a>
+                        </li>
+                        <li><a href="#">List Tasks</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
