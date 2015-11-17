@@ -1,0 +1,22 @@
+{% extends 'common/nav.html' %}
+
+{% block content %}
+    {% if entries %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>URL</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            {% for entry in entries %}
+                <tr>
+                    <td>{{entry.url}}</td>
+                    <td>{{entry.email}}</td>
+                </tr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tasks available</p>
+    {% endif %}
+{% endblock %}

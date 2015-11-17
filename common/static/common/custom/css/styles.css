@@ -7,3 +7,8 @@ p {
     font-size: 30px;
 }
 
+#newTaskForm {
+    width: 50%;
+    margin: auto;
+    margin-top: 10%;
+}

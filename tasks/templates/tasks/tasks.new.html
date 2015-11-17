@@ -1,0 +1,22 @@
+{% extends 'common/nav.html' %}
+
+{% block content %}
+    <div id="newTaskForm">
+        <form method="post" action="/tasks/new">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="urlField">Url</label>
+                <input type="url" id="urlField" name="url" class="form-control" placeholder="URL" />
+            </div>
+            <div class="form-group">
+                <label for="emailField">Email</label>
+                <input type="email" name="email" class="form-control" id="emailField" placeholder="Email" />
+            </div>
+            <div class="form-group">
+                <label for="keywordsField">Keywords</label>
+                <input type="text" name="keywords" class="form-control" id="keywordsField" placeholder="separate keywords by ','" />
+            </div>
+            <button type="submit" class="form-control btn btn-default">Add Task</button>
+        </form>
+    </div>
+{% endblock %}

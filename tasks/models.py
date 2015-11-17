@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Entry(models.Model):
-    url = models.TextField()
+    url = models.URLField()
     email = models.EmailField()
 
     def __unicode__(self):
