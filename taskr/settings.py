@@ -10,6 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
+# celery configuration
+import djcelery
+djcelery.setup_loader()
+BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
@@ -39,11 +44,12 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'tasks',
     'common',
-    
-    # celery apps
+
+    # celery
     'djcelery',
     'kombu.transport.django',
 )
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

@@ -1,13 +1,16 @@
+from __future__ import absolute_import
+
 import requests
 from datetime import date
 from django.core.mail import EmailMessage
+from djcelery import celery
 
-from tasks.models import Result, Keyword, Entry
+from .models import Result, Keyword, Entry
 
 
 def search_task(url, keywords):
     response = requests.get(url)
-    ressults = []
+    results = []
 
     content = response.text
 
@@ -15,20 +18,16 @@ def search_task(url, keywords):
         frequency = content.count(keyword)
 
         if frequency != 0:
-            entry = Entry.objects.get(url=url)
-            key = Keyword.objects.get(entry=entry).get(key=keyword)
-
-            results = Result(keyword=key, isAvailable=True, count=frequency)
             results.append({
                 'url': url,
-                'keyword': key,
+                'keyword': keyword,
                 'isAvailable': True,
                 'count': frequency
                 })
 
     return results
 
-
+@celery.task
 def perform_search_and_send_email():
     entries = Entry.objects.all().filter(end_date__gte=date.today())
 
@@ -42,11 +41,10 @@ def perform_search_and_send_email():
 
         if len(results) > 0:
             subject = 'Taskr found your keywords!'
-            body = 'In ' + results['url'] + '\n Taskr found the following \
-                        keywords' + '\n Keyword      Frequency'
+            body = 'In ' + str(url) + '\n Taskr found the following keywords' + '\n Keyword      Frequency'
 
             for result in results:
-                body += '\n ' + results['keyword'] + '      ' + results['count']
+                body += '\n ' + result['keyword'] + '      ' + str(result['count'])
 
             email = EmailMessage(subject, body, to=[entry.email])
 

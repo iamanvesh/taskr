@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from tasks.models import Entry, Keyword, Result
+from .models import Entry, Keyword, Result
 
 
 class EntryAdmin(admin.ModelAdmin):

@@ -1,6 +1,6 @@
 from django.conf.urls import include, url
 
-from tasks import views
+from . import views
 
 urlpatterns = [
     url(r'new', views.new_task, name='new_task'),

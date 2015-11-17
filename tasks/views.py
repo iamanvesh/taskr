@@ -1,8 +1,9 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
-from tasks.forms import EntryForm
-from tasks.models import Entry, Keyword
+from .forms import EntryForm
+from .models import Entry, Keyword
+from .tasks import perform_search_and_send_email
 
 
 def new_task(request):
@@ -20,7 +21,7 @@ def new_task(request):
             for keyword in keywords:
                 key = Keyword(entry=task_entry, key=keyword)
                 key.save()
-                
+            perform_search_and_send_email.delay()
             return HttpResponseRedirect('/tasks')
         else:
             print form.errors
