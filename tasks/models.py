@@ -21,12 +21,13 @@ class Keyword(models.Model):
 class Entry(models.Model):
     url = models.URLField()
     email = models.EmailField()
+    end_date = models.DateField()
 
     def __unicode__(self):
         return self.url
 
     def get_keywords(self):
-        keywords = Keyword.objects.filter(entry__url=self.url)
+        keywords = Keyword.objects.filter(entry=self)
 
         str_keys = []
 
