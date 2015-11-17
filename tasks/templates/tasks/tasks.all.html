@@ -7,12 +7,16 @@
                 <tr>
                     <th>URL</th>
                     <th>Email</th>
+                    <th>Keywords</th>
                 </tr>
             </thead>
             {% for entry in entries %}
                 <tr>
                     <td>{{entry.url}}</td>
                     <td>{{entry.email}}</td>
+                    {% with index=forloop.counter0 %}
+                    <td>{{entry.get_keywords}}</td>
+                    {% endwith %}
                 </tr>
             {% endfor %}
         </ul>

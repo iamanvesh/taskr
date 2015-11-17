@@ -26,5 +26,7 @@ def new_task(request):
 
 def all_tasks(request):
     entries = Entry.objects.all()
+
     context = {'entries': entries}
+
     return render(request, 'tasks/tasks.all.html', context)
